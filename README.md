@@ -1,8 +1,3 @@
-# Practice Problems
-A collection of coding problems I've practiced, with explanations of my approach and solution.
-
-## Structure
-- /easy
-- /medium
-- /hard
+# Leetcode
+Practice to get better at problem solving. If youre a beginner you can look through these and might learn a few things yourself :)
 
