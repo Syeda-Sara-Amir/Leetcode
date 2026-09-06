@@ -7,6 +7,7 @@
 
 // O(n*2) or better
 
+java.util.HashMap;
 
 class Solution {
     public boolean isValidSudoku(char[][] board) {
@@ -22,20 +23,20 @@ class Solution {
 
 
 
-        HashMap<char> row = new Hashmap<>;
-        HashMap<char> column = new Hashmap<>;
-        HashMap<char> sqr1 = new Hashmap<>;
-        HashMap<char> sqr2 = new Hashmap<>;
-        HashMap<char> sqr3 = new Hashmap<>;
+        HashSet<Char> row = new HashSet<>();
+        HashSet<Char> column = new HashSet<>();
+        HashSet<Char> sqr1 = new HashSet<>();
+        HashSet<Char> sqr2 = new HashSet<>();
+        HashSet<Char> sqr3 = new HashSet<>();
 
 
         boolean sudoko = True;
 
         // array[row][column]
 
-        for(int i = 0; i < 9; i++){
+        for(int i = 0; i < 9; i++){  // loop that changes rows 
             columnlen = 1;
-            for(int j = 0; j < 9; j++){
+            for(int j = 0; j < 9; j++){ // loop that changes columns
                 if(columnlen <= 3){
                     // add to first square
                 } else if (columnlen <= 6){
