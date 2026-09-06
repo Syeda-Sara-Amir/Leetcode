@@ -7,7 +7,7 @@
 
 // O(n*2) or better
 
-java.util.HashMap;
+java.util.HashSet;
 
 class Solution {
     public boolean isValidSudoku(char[][] board) {
@@ -30,14 +30,27 @@ class Solution {
         HashSet<Char> sqr3 = new HashSet<>();
 
 
+        // IMPORTANT FIX: i did not consider that the numbers and the . both are considered chars and "." can repear and it can cause us to return false as a value is being repeated
+        //                 i have to only count the numbers, so we need to cheak if the chars are equal to numbers from 1 to 9
+
         boolean sudoko = True;
 
         // array[row][column]
-
+        int rowlen = 1;
         for(int i = 0; i < 9; i++){  // loop that changes rows 
-            columnlen = 1;
+
+
+            int columnlen = 1;
             for(int j = 0; j < 9; j++){ // loop that changes columns
+
+                if(!column.contain(board[i][j])){  // adding into hashset if it doesnt already exist in the set
+                    column.add(board[i][j]);
+                } else if(column.contain(board[i][j])){
+                    return false;    // return false if the column has the a reapeating value
+                }
+
                 if(columnlen <= 3){
+
                     // add to first square
                 } else if (columnlen <= 6){
                     // add to second square
@@ -45,6 +58,7 @@ class Solution {
                     // add to third square  
                 } 
             }
+
         }
     }
 }
