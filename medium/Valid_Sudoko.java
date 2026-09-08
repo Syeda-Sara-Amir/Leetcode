@@ -7,7 +7,7 @@
 
 // O(n*2) or better
 
-java.util.HashSet;
+import java.util.HashSet;
 
 class Solution {
     public boolean isValidSudoku(char[][] board) {
@@ -23,42 +23,80 @@ class Solution {
 
 
 
-        HashSet<Char> row = new HashSet<>();
-        HashSet<Char> column = new HashSet<>();
-        HashSet<Char> sqr1 = new HashSet<>();
-        HashSet<Char> sqr2 = new HashSet<>();
-        HashSet<Char> sqr3 = new HashSet<>();
+        HashSet<Character> row = new HashSet<>();
+        HashSet<Character> column = new HashSet<>();
+        HashSet<Character> sqr1 = new HashSet<>();
+        HashSet<Character> sqr2 = new HashSet<>();
+        HashSet<Character> sqr3 = new HashSet<>();
 
 
-        // IMPORTANT FIX: i did not consider that the numbers and the . both are considered chars and "." can repear and it can cause us to return false as a value is being repeated
-        //                 i have to only count the numbers, so we need to cheak if the chars are equal to numbers from 1 to 9
+        // (done, hopefully) IMPORTANT FIX: i did not consider that the numbers and the . both are considered chars and "." can repear and it can cause us to return false as a value is being repeated
+        //                                  i have to only count the numbers, so we need to cheak if the chars are equal to numbers from 1 to 9
 
-        boolean sudoko = True;
+
+        // after three rows there is another square, after three colums there is another square
+        // once we are done with the first three rows we need to check if they are statisfying the condition or not, of yes
+        // we clear the square sets and start em new for the next three rows
+
+        // oh no we can check the columns one by one, but we cant check rows, i mean we would need to make a separete hashset for every row cause we need to save all the numbers in a row till we reach the end 
 
         // array[row][column]
         int rowlen = 1;
         for(int i = 0; i < 9; i++){  // loop that changes rows 
 
+            // we dont need to check the rows separatly cause the j for loop is cheaking every column, we just need to keep changing the column here 
+  
+            // clearing square sets after 3 rows are done 
+            if(rowlen <= 3){
+                sqr1.clear();
+                sqr2.clear();
+                sqr3.clear();
+            } else if (rowlen > 3){
+                rowlen = 1;
+            }
+
 
             int columnlen = 1;
             for(int j = 0; j < 9; j++){ // loop that changes columns
 
-                if(!column.contain(board[i][j])){  // adding into hashset if it doesnt already exist in the set
-                    column.add(board[i][j]);
-                } else if(column.contain(board[i][j])){
-                    return false;    // return false if the column has the a reapeating value
+                if(board[i][j] >= '1' && board[i][j] <= '9'){   // adding check for 1 to 9 only
+
+                    if(!column.contains(board[i][j])){  // adding into hashset if it doesnt already exist in the set
+                        column.add(board[i][j]);
+                    } else if(column.contains(board[i][j])){
+                        return false;    // return false if the column has the a reapeating value
+                    }
+
+                    // ADDING TO SQUARE SET AFTER CHECKING IF IT EXITS THERE ALREADY OR NOT
+                    if(columnlen <= 3){
+                        if(!sqr1.contains(board[i][j])){
+                            sqr1.add(board[i][j]);
+                            columnlen ++;
+                        } else if(sqr1.contains(board[i][j])){
+                            return false;
+                        }
+                    } else if (columnlen <= 6){
+                        if(!sqr2.contains(board[i][j])){
+                            sqr2.add(board[i][j]);
+                            columnlen ++;
+                        } else if(sqr2.contains(board[i][j])){
+                            return false;
+                        }
+                    } else if (columnlen <= 9){
+                        if(!sqr3.contains(board[i][j])){
+                            sqr3.add(board[i][j]);
+                            columnlen ++;
+                        } else if(sqr3.contains(board[i][j])){
+                            return false;
+                        } 
+                    } 
+
                 }
-
-                if(columnlen <= 3){
-
-                    // add to first square
-                } else if (columnlen <= 6){
-                    // add to second square
-                } else if (columnlen <= 9){
-                    // add to third square  
-                } 
             }
+            column.clear();  // ofc we need to clear the column hashset for the next rows columns, forgot about that
 
         }
+
+        return true;
     }
 }
