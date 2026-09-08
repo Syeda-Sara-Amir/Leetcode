@@ -39,6 +39,9 @@ class Solution {
         // we clear the square sets and start em new for the next three rows
 
         // oh no we can check the columns one by one, but we cant check rows, i mean we would need to make a separete hashset for every row cause we need to save all the numbers in a row till we reach the end 
+        // maybe i should make a sep loop for rows
+
+
 
         // array[row][column]
         int rowlen = 1;
@@ -47,7 +50,7 @@ class Solution {
             // we dont need to check the rows separatly cause the j for loop is cheaking every column, we just need to keep changing the column here 
   
             // clearing square sets after 3 rows are done 
-            if(rowlen <= 3){
+            if(rowlen == 3){
                 sqr1.clear();
                 sqr2.clear();
                 sqr3.clear();
@@ -94,7 +97,7 @@ class Solution {
                 }
             }
             column.clear();  // ofc we need to clear the column hashset for the next rows columns, forgot about that
-
+            rowlen++;
         }
 
         return true;
